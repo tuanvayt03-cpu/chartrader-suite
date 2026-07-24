@@ -11,11 +11,9 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SourcesRouteImport } from './routes/sources'
 import { Route as SignalsRouteImport } from './routes/signals'
-import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as RiskRouteImport } from './routes/risk'
 import { Route as PositionsRouteImport } from './routes/positions'
 import { Route as OrdersRouteImport } from './routes/orders'
-import { Route as AnalyticsRouteImport } from './routes/analytics'
 import { Route as AccountsRouteImport } from './routes/accounts'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -27,11 +25,6 @@ const SourcesRoute = SourcesRouteImport.update({
 const SignalsRoute = SignalsRouteImport.update({
   id: '/signals',
   path: '/signals',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SettingsRoute = SettingsRouteImport.update({
-  id: '/settings',
-  path: '/settings',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RiskRoute = RiskRouteImport.update({
@@ -49,11 +42,6 @@ const OrdersRoute = OrdersRouteImport.update({
   path: '/orders',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AnalyticsRoute = AnalyticsRouteImport.update({
-  id: '/analytics',
-  path: '/analytics',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AccountsRoute = AccountsRouteImport.update({
   id: '/accounts',
   path: '/accounts',
@@ -68,22 +56,18 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/accounts': typeof AccountsRoute
-  '/analytics': typeof AnalyticsRoute
   '/orders': typeof OrdersRoute
   '/positions': typeof PositionsRoute
   '/risk': typeof RiskRoute
-  '/settings': typeof SettingsRoute
   '/signals': typeof SignalsRoute
   '/sources': typeof SourcesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/accounts': typeof AccountsRoute
-  '/analytics': typeof AnalyticsRoute
   '/orders': typeof OrdersRoute
   '/positions': typeof PositionsRoute
   '/risk': typeof RiskRoute
-  '/settings': typeof SettingsRoute
   '/signals': typeof SignalsRoute
   '/sources': typeof SourcesRoute
 }
@@ -91,11 +75,9 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/accounts': typeof AccountsRoute
-  '/analytics': typeof AnalyticsRoute
   '/orders': typeof OrdersRoute
   '/positions': typeof PositionsRoute
   '/risk': typeof RiskRoute
-  '/settings': typeof SettingsRoute
   '/signals': typeof SignalsRoute
   '/sources': typeof SourcesRoute
 }
@@ -104,33 +86,27 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/accounts'
-    | '/analytics'
     | '/orders'
     | '/positions'
     | '/risk'
-    | '/settings'
     | '/signals'
     | '/sources'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/accounts'
-    | '/analytics'
     | '/orders'
     | '/positions'
     | '/risk'
-    | '/settings'
     | '/signals'
     | '/sources'
   id:
     | '__root__'
     | '/'
     | '/accounts'
-    | '/analytics'
     | '/orders'
     | '/positions'
     | '/risk'
-    | '/settings'
     | '/signals'
     | '/sources'
   fileRoutesById: FileRoutesById
@@ -138,11 +114,9 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AccountsRoute: typeof AccountsRoute
-  AnalyticsRoute: typeof AnalyticsRoute
   OrdersRoute: typeof OrdersRoute
   PositionsRoute: typeof PositionsRoute
   RiskRoute: typeof RiskRoute
-  SettingsRoute: typeof SettingsRoute
   SignalsRoute: typeof SignalsRoute
   SourcesRoute: typeof SourcesRoute
 }
@@ -161,13 +135,6 @@ declare module '@tanstack/react-router' {
       path: '/signals'
       fullPath: '/signals'
       preLoaderRoute: typeof SignalsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/settings': {
-      id: '/settings'
-      path: '/settings'
-      fullPath: '/settings'
-      preLoaderRoute: typeof SettingsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/risk': {
@@ -191,13 +158,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OrdersRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/analytics': {
-      id: '/analytics'
-      path: '/analytics'
-      fullPath: '/analytics'
-      preLoaderRoute: typeof AnalyticsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/accounts': {
       id: '/accounts'
       path: '/accounts'
@@ -218,24 +178,12 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AccountsRoute: AccountsRoute,
-  AnalyticsRoute: AnalyticsRoute,
   OrdersRoute: OrdersRoute,
   PositionsRoute: PositionsRoute,
   RiskRoute: RiskRoute,
-  SettingsRoute: SettingsRoute,
   SignalsRoute: SignalsRoute,
   SourcesRoute: SourcesRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
