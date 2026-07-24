@@ -1,19 +1,15 @@
-// Reusable placeholder for nav items that don't have full pages in this prototype.
-import { AppShell } from "@/components/app-shell";
-import { DashboardHeader } from "@/components/dashboard-header";
-import { Card } from "@/components/ui/card";
+import { AppShell } from "./app-shell";
+import { PageHeader } from "./page-header";
+import { Card } from "./ui/card";
+import { useI18n } from "@/lib/i18n";
 
 export function ComingSoonPage({ title, subtitle }: { title: string; subtitle?: string }) {
+  const { t } = useI18n();
   return (
     <AppShell>
-      <DashboardHeader title={title} subtitle={subtitle} />
-      <Card className="p-10 text-center">
-        <div className="mx-auto max-w-md">
-          <div className="text-sm font-medium">Coming soon</div>
-          <p className="mt-2 text-xs text-muted-foreground">
-            This section is part of the prototype scaffold. The dashboard and Telegram Sources pages contain the fully implemented flows.
-          </p>
-        </div>
+      <PageHeader title={title} subtitle={subtitle ?? t("common.needsAdapter")} />
+      <Card className="p-8 text-center text-sm text-muted-foreground">
+        {t("common.requiresBackend")}
       </Card>
     </AppShell>
   );

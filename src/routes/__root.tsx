@@ -13,6 +13,8 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { I18nProvider } from "../lib/i18n";
 import { Toaster } from "../components/ui/sonner";
+import { PrivacyProvider } from "../lib/privacy";
+import { AccountScopeProvider } from "../lib/account-scope";
 
 function NotFoundComponent() {
   return (
@@ -121,9 +123,13 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <I18nProvider>
-        {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-        <Outlet />
-        <Toaster position="top-right" richColors />
+        <PrivacyProvider>
+          <AccountScopeProvider>
+            {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+            <Outlet />
+            <Toaster position="top-right" richColors />
+          </AccountScopeProvider>
+        </PrivacyProvider>
       </I18nProvider>
     </QueryClientProvider>
   );

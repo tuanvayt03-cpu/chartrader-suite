@@ -1,4 +1,4 @@
-import { useI18n } from "@/lib/i18n";
+import { useI18n, type Language } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
 export function LanguageSwitcher({ className }: { className?: string }) {
@@ -12,7 +12,7 @@ export function LanguageSwitcher({ className }: { className?: string }) {
         className,
       )}
     >
-      {(["vi", "en"] as const).map((l) => (
+      {(["vi", "en"] as Language[]).map((l) => (
         <button
           key={l}
           type="button"
