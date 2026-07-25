@@ -58,7 +58,7 @@ function AccountsPage() {
                     <div className="min-w-0">
                       <div className="truncate text-sm font-semibold">{a.alias}</div>
                       <div className="mt-0.5 truncate text-xs text-muted-foreground">
-                        {mask(a.login, "login")} · {a.broker}
+                        {mask(String(a.login), "id")} · {a.broker}
                       </div>
                     </div>
                     <Badge variant="secondary">{a.currency}</Badge>
@@ -82,7 +82,7 @@ function AccountsPage() {
               {archived.map((a) => (
                 <Card key={a.id} className="p-4 opacity-70">
                   <div className="text-sm font-semibold">{a.alias}</div>
-                  <div className="text-xs text-muted-foreground">{mask(a.login, "login")}</div>
+                  <div className="text-xs text-muted-foreground">{mask(String(a.login), "id")}</div>
                 </Card>
               ))}
             </div>
