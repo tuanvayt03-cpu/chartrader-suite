@@ -9,19 +9,67 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TraceRouteImport } from './routes/trace'
+import { Route as TelegramRouteImport } from './routes/telegram'
 import { Route as SourcesRouteImport } from './routes/sources'
+import { Route as SignalsRouteImport } from './routes/signals'
+import { Route as RuntimeRouteImport } from './routes/runtime'
+import { Route as RiskRouteImport } from './routes/risk'
+import { Route as PositionsRouteImport } from './routes/positions'
 import { Route as OrdersRouteImport } from './routes/orders'
+import { Route as InboxRouteImport } from './routes/inbox'
+import { Route as HermesRouteImport } from './routes/hermes'
 import { Route as AccountsRouteImport } from './routes/accounts'
 import { Route as IndexRouteImport } from './routes/index'
 
+const TraceRoute = TraceRouteImport.update({
+  id: '/trace',
+  path: '/trace',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TelegramRoute = TelegramRouteImport.update({
+  id: '/telegram',
+  path: '/telegram',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SourcesRoute = SourcesRouteImport.update({
   id: '/sources',
   path: '/sources',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SignalsRoute = SignalsRouteImport.update({
+  id: '/signals',
+  path: '/signals',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RuntimeRoute = RuntimeRouteImport.update({
+  id: '/runtime',
+  path: '/runtime',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RiskRoute = RiskRouteImport.update({
+  id: '/risk',
+  path: '/risk',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PositionsRoute = PositionsRouteImport.update({
+  id: '/positions',
+  path: '/positions',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const OrdersRoute = OrdersRouteImport.update({
   id: '/orders',
   path: '/orders',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InboxRoute = InboxRouteImport.update({
+  id: '/inbox',
+  path: '/inbox',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HermesRoute = HermesRouteImport.update({
+  id: '/hermes',
+  path: '/hermes',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AccountsRoute = AccountsRouteImport.update({
@@ -38,39 +86,122 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/accounts': typeof AccountsRoute
+  '/hermes': typeof HermesRoute
+  '/inbox': typeof InboxRoute
   '/orders': typeof OrdersRoute
+  '/positions': typeof PositionsRoute
+  '/risk': typeof RiskRoute
+  '/runtime': typeof RuntimeRoute
+  '/signals': typeof SignalsRoute
   '/sources': typeof SourcesRoute
+  '/telegram': typeof TelegramRoute
+  '/trace': typeof TraceRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/accounts': typeof AccountsRoute
+  '/hermes': typeof HermesRoute
+  '/inbox': typeof InboxRoute
   '/orders': typeof OrdersRoute
+  '/positions': typeof PositionsRoute
+  '/risk': typeof RiskRoute
+  '/runtime': typeof RuntimeRoute
+  '/signals': typeof SignalsRoute
   '/sources': typeof SourcesRoute
+  '/telegram': typeof TelegramRoute
+  '/trace': typeof TraceRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/accounts': typeof AccountsRoute
+  '/hermes': typeof HermesRoute
+  '/inbox': typeof InboxRoute
   '/orders': typeof OrdersRoute
+  '/positions': typeof PositionsRoute
+  '/risk': typeof RiskRoute
+  '/runtime': typeof RuntimeRoute
+  '/signals': typeof SignalsRoute
   '/sources': typeof SourcesRoute
+  '/telegram': typeof TelegramRoute
+  '/trace': typeof TraceRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/accounts' | '/orders' | '/sources'
+  fullPaths:
+    | '/'
+    | '/accounts'
+    | '/hermes'
+    | '/inbox'
+    | '/orders'
+    | '/positions'
+    | '/risk'
+    | '/runtime'
+    | '/signals'
+    | '/sources'
+    | '/telegram'
+    | '/trace'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/accounts' | '/orders' | '/sources'
-  id: '__root__' | '/' | '/accounts' | '/orders' | '/sources'
+  to:
+    | '/'
+    | '/accounts'
+    | '/hermes'
+    | '/inbox'
+    | '/orders'
+    | '/positions'
+    | '/risk'
+    | '/runtime'
+    | '/signals'
+    | '/sources'
+    | '/telegram'
+    | '/trace'
+  id:
+    | '__root__'
+    | '/'
+    | '/accounts'
+    | '/hermes'
+    | '/inbox'
+    | '/orders'
+    | '/positions'
+    | '/risk'
+    | '/runtime'
+    | '/signals'
+    | '/sources'
+    | '/telegram'
+    | '/trace'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AccountsRoute: typeof AccountsRoute
+  HermesRoute: typeof HermesRoute
+  InboxRoute: typeof InboxRoute
   OrdersRoute: typeof OrdersRoute
+  PositionsRoute: typeof PositionsRoute
+  RiskRoute: typeof RiskRoute
+  RuntimeRoute: typeof RuntimeRoute
+  SignalsRoute: typeof SignalsRoute
   SourcesRoute: typeof SourcesRoute
+  TelegramRoute: typeof TelegramRoute
+  TraceRoute: typeof TraceRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/trace': {
+      id: '/trace'
+      path: '/trace'
+      fullPath: '/trace'
+      preLoaderRoute: typeof TraceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/telegram': {
+      id: '/telegram'
+      path: '/telegram'
+      fullPath: '/telegram'
+      preLoaderRoute: typeof TelegramRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sources': {
       id: '/sources'
       path: '/sources'
@@ -78,11 +209,53 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SourcesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/signals': {
+      id: '/signals'
+      path: '/signals'
+      fullPath: '/signals'
+      preLoaderRoute: typeof SignalsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/runtime': {
+      id: '/runtime'
+      path: '/runtime'
+      fullPath: '/runtime'
+      preLoaderRoute: typeof RuntimeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/risk': {
+      id: '/risk'
+      path: '/risk'
+      fullPath: '/risk'
+      preLoaderRoute: typeof RiskRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/positions': {
+      id: '/positions'
+      path: '/positions'
+      fullPath: '/positions'
+      preLoaderRoute: typeof PositionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/orders': {
       id: '/orders'
       path: '/orders'
       fullPath: '/orders'
       preLoaderRoute: typeof OrdersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/inbox': {
+      id: '/inbox'
+      path: '/inbox'
+      fullPath: '/inbox'
+      preLoaderRoute: typeof InboxRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hermes': {
+      id: '/hermes'
+      path: '/hermes'
+      fullPath: '/hermes'
+      preLoaderRoute: typeof HermesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/accounts': {
@@ -105,8 +278,16 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AccountsRoute: AccountsRoute,
+  HermesRoute: HermesRoute,
+  InboxRoute: InboxRoute,
   OrdersRoute: OrdersRoute,
+  PositionsRoute: PositionsRoute,
+  RiskRoute: RiskRoute,
+  RuntimeRoute: RuntimeRoute,
+  SignalsRoute: SignalsRoute,
   SourcesRoute: SourcesRoute,
+  TelegramRoute: TelegramRoute,
+  TraceRoute: TraceRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
